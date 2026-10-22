@@ -16,5 +16,38 @@ services:
       timeout: 3s
       retries: 10
 
+  # Canal Telegram: recebe o webhook do bot, chama a API e devolve a resposta.
+  n8n:
+    image: n8nio/n8n:2.44.6
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      GENERIC_TIMEZONE: America/Sao_Paulo
+      TZ: America/Sao_Paulo
+      # URL pública (túnel) usada para montar o endereço do webhook. O scripts/telegram-up.ps1 preenche.
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-http://localhost:5678/}
+      N8N_PROXY_HOPS: "1"
+      N8N_SECURE_COOKIE: "false"
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      # O fluxo lê segredos e a URL da API de variáveis de ambiente, assim o JSON exportado não leva nenhum segredo.
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_WEBHOOK_SECRET: ${TELEGRAM_WEBHOOK_SECRET:-}
+      # A API roda no host (dotnet run); de dentro do container ela é vista como host.docker.internal.
+      API_BASE_URL: http://host.docker.internal:5080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - n8ndata:/home/node/.n8n
+      - ./n8n:/workflows:ro
+
+  # Túnel rápido (sem conta): expõe o n8n numa URL https://*.trycloudflare.com para o Telegram conseguir chamar o webhook.
+  cloudflared:
+    image: cloudflare/cloudflared:2026.10.3
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://n8n:5678
+
 volumes:
   pgdata:
+  n8ndata:
