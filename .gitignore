@@ -1,0 +1,21 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+TestResults/
+
+# Node
+node_modules/
+dist/
+
+# Segredos e ambiente
+.env
+appsettings.*.local.json
+
+# Ferramentas locais (skills copiadas de outro projeto)
+.claude/
+
+# Sistema
+Thumbs.db
+.DS_Store
