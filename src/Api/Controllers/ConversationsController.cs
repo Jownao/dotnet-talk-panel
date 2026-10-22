@@ -1,3 +1,4 @@
+using Api.Ai;
 using Api.Models.Dtos;
 using Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,17 @@ namespace Api.Controllers;
 public class ConversationsController : ControllerBase
 {
     private readonly IConversationService _conversations;
-    private readonly IMessageService _messages;
+    private readonly IAgentService _agent;
+    private readonly ILogger<ConversationsController> _logger;
 
-    public ConversationsController(IConversationService conversations, IMessageService messages)
+    public ConversationsController(
+        IConversationService conversations,
+        IAgentService agent,
+        ILogger<ConversationsController> logger)
     {
         _conversations = conversations;
-        _messages = messages;
+        _agent = agent;
+        _logger = logger;
     }
 
     [HttpPost]
@@ -44,11 +50,26 @@ public class ConversationsController : ControllerBase
         return conversation is null ? NotFound() : conversation;
     }
 
+    /// <summary>Recebe a mensagem do aluno e devolve a resposta do agente.</summary>
     [HttpPost("{id:int}/messages")]
+    [ProducesResponseType<MessageDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status502BadGateway)]
     public async Task<ActionResult<MessageDto>> SendMessage(
         int id, SendMessageRequest request, CancellationToken ct)
     {
-        var message = await _messages.AddUserMessageAsync(id, request.Content, ct);
-        return message is null ? NotFound() : message;
+        try
+        {
+            var reply = await _agent.ReplyAsync(id, request.Content, ct);
+            return reply is null ? NotFound() : reply;
+        }
+        catch (AiClientException ex)
+        {
+            _logger.LogError(ex, "Falha ao obter resposta da IA na conversa {ConversationId}", id);
+            return Problem(
+                title: "Agente indisponível",
+                detail: "Não foi possível obter a resposta da IA agora. Tente novamente em instantes.",
+                statusCode: StatusCodes.Status502BadGateway);
+        }
     }
 }

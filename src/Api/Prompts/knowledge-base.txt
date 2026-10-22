@@ -1,0 +1,47 @@
+Lingua Viva Idiomas (curso fictício usado neste projeto de portfólio)
+
+CURSOS
+- Inglês, Espanhol e Italiano.
+- Turmas em grupo (máximo de 10 alunos) e aulas particulares.
+
+NÍVEIS
+- Cada idioma tem 6 níveis: A1, A2, B1, B2, C1 e C2.
+- Cada nível dura 6 meses (2 semestres de 3 meses).
+- Quem já tem conhecimento faz um teste de nivelamento gratuito, online, com resultado em até 1 dia útil.
+
+HORÁRIOS (turmas em grupo)
+- Manhã: segundas e quartas, das 8h às 9h30.
+- Tarde: terças e quintas, das 14h às 15h30.
+- Noite: segundas e quartas, das 19h às 20h30, e terças e quintas, das 19h às 20h30.
+- Sábados: das 9h às 12h (turma intensiva, só para Inglês).
+- Aulas particulares: horário combinado com o professor, de segunda a sábado.
+
+PREÇOS
+- Turma em grupo: R$ 390,00 por mês.
+- Turma intensiva de sábado (Inglês): R$ 450,00 por mês.
+- Aula particular: R$ 120,00 por aula de 1 hora.
+- Material didático: R$ 180,00 por semestre, pago uma vez.
+- Taxa de matrícula: R$ 90,00, cobrada uma vez.
+- Desconto de 10% na mensalidade para quem paga o semestre à vista.
+
+MATRÍCULA
+- Documentos: documento de identidade com foto e CPF (para menores, também do responsável).
+- A matrícula pode ser feita online no site ou presencialmente na secretaria.
+- Idade mínima: 14 anos. Menores de 18 anos precisam de autorização do responsável.
+- As turmas começam em fevereiro e em agosto. Entrada fora dessas datas depende de vaga.
+
+CANCELAMENTO E TRANCAMENTO
+- O cancelamento deve ser pedido à secretaria com 30 dias de antecedência, por escrito.
+- A taxa de matrícula e o material didático não são reembolsáveis.
+- É possível trancar a matrícula por até 3 meses uma vez por ano, sem custo.
+- Faltas podem ser repostas em aulas de reposição gratuitas, com agendamento prévio.
+
+CERTIFICADO
+- Ao concluir cada nível com 75% de presença e nota mínima 7, o aluno recebe certificado de conclusão.
+- O curso prepara para exames como TOEFL, IELTS e DELE, mas não aplica as provas.
+
+CONTATO DA SECRETARIA
+- Atendimento de segunda a sexta, das 9h às 18h.
+- E-mail: secretaria@linguaviva.example
+- Telefone: (11) 4000-0000
+- Endereço: Rua das Palmeiras, 120, Centro (endereço fictício).
