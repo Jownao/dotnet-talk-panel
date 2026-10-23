@@ -28,6 +28,13 @@ builder.Services.AddSingleton<IPromptProvider>(
 builder.Services.AddScoped<IConversationService, ConversationService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAgentService, AgentService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IStatsService, StatsService>();
+
+// CORS: o painel React (Vite) roda em outra origem e precisa ser liberado explicitamente.
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
+    options.AddPolicy("Panel", policy => policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services
     .AddControllers()
@@ -54,6 +61,8 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
 }
+
+app.UseCors("Panel");
 
 app.MapControllers();
 
