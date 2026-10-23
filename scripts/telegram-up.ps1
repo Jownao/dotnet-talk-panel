@@ -20,7 +20,9 @@ foreach ($required in "TELEGRAM_BOT_TOKEN", "TELEGRAM_WEBHOOK_SECRET") {
 }
 
 Write-Host "1/5 Subindo o túnel..."
-docker compose up -d cloudflared | Out-Null
+# --force-recreate: um container novo começa com o log vazio. Sem isso, os logs de um túnel anterior
+# continuam lá e o script poderia registrar no Telegram uma URL que já morreu.
+docker compose up -d --force-recreate cloudflared | Out-Null
 $tunnelUrl = $null
 for ($i = 0; $i -lt 40 -and -not $tunnelUrl; $i++) {
     Start-Sleep -Seconds 2
