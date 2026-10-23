@@ -1,4 +1,4 @@
-# Sobe o canal Telegram: túnel Cloudflare -> n8n -> fluxo publicado -> webhook do bot apontando para o túnel.
+﻿# Sobe o canal Telegram: túnel Cloudflare -> n8n -> fluxo publicado -> webhook do bot apontando para o túnel.
 # Precisa de: Docker Desktop aberto, .env com TELEGRAM_BOT_TOKEN e TELEGRAM_WEBHOOK_SECRET, e a API rodando em http://localhost:5080.
 # A URL do túnel rápido muda a cada subida, por isso o webhook é registrado de novo toda vez que este script roda.
 
