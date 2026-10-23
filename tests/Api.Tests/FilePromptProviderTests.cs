@@ -26,6 +26,26 @@ public sealed class FilePromptProviderTests : IDisposable
     }
 
     [Fact]
+    public void RealPromptFiles_EveryVersionLoadsWithKnowledgeBase()
+    {
+        // Prompts/ do projeto Api é copiado para a saída do build (Api.csproj).
+        var realDir = Path.Combine(AppContext.BaseDirectory, "Prompts");
+        var provider = new FilePromptProvider(realDir);
+        var versions = Directory.GetFiles(realDir, "system-*.txt")
+            .Select(f => Path.GetFileNameWithoutExtension(f)["system-".Length..])
+            .ToList();
+
+        Assert.Contains("v1", versions);
+        Assert.Contains("v2", versions);
+        foreach (var version in versions)
+        {
+            var prompt = provider.GetSystemPrompt(version);
+            Assert.Contains("## Base de conhecimento", prompt);
+            Assert.Contains("Lingua Viva Idiomas", prompt);
+        }
+    }
+
+    [Fact]
     public void GetSystemPrompt_UnknownVersion_Throws()
     {
         var provider = new FilePromptProvider(_dir);

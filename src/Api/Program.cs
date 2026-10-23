@@ -67,3 +67,6 @@ app.UseCors("Panel");
 app.MapControllers();
 
 app.Run();
+
+// Torna a classe Program visível para os testes de endpoint (WebApplicationFactory<Program>).
+public partial class Program;
